@@ -28,7 +28,7 @@ public class Login {
      * @return prawda, gdy login i hasło zgadzaja sie, fałsz gdy albo login albo hasło nie pasuje do tych rpzechowywanych przez instancję kalsy
      */
     public boolean check(String _login, String _password){
-        return login == _login && password == _password;
+        return _login.equals(login) && _password.equals(password);
     }
 
 }
