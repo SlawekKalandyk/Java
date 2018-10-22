@@ -34,11 +34,12 @@ public class Test {
                 case 2:
                     System.out.println("Punkty w liście to:");
 
-                        System.out.printf("(%f; %f; %f)\n", punkt.getX(), punkt.getY(), punkt.getZ());
+                    for(Punkt3D punkt : punkty) {
+                    System.out.printf("(%f; %f; %f)\n", punkt.getX(), punkt.getY(), punkt.getZ());
                     }
                     break;
                 case 3:
-
+                    
                     break;
                 case 4:
                     break;
