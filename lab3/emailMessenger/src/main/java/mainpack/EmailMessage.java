@@ -2,6 +2,9 @@ package mainpack;
 
 import java.util.*;
 import java.lang.*;
+import javax.mail.*;
+import javax.mail.internet.*;
+import javax.activation.*;
 
 public class EmailMessage {
     private String from; //required (must be e-mail)
@@ -22,6 +25,26 @@ public class EmailMessage {
         this.bcc = builder.bcc;
     }
 
+    public void send() {
+        Properties properties = System.getProperties();
+        properties.setProperty("mail.smtp.host", "localhost");
+        Session session = Session.getDefaultInstance(properties);
+
+        try {
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(this.from));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(this.to));
+            message.setSubject(this.subject);
+            message.setText(this.content);
+
+            Transport.send(message);
+            System.out.println("message sent successfully....");
+
+        } catch (MessagingException mex) {
+            mex.printStackTrace();
+        }
+    }
+
     private static void checkEmail(String email) {
         for (int i = 0; i < email.length() - 1; ++i) {
             if (email.charAt(i) == '@' || (i == 0 && email.charAt(i) == '@')) {
@@ -30,6 +53,10 @@ public class EmailMessage {
         }
 
         throw new IllegalArgumentException("Email does not have @ sign");
+    }
+
+    public static Builder builder() {
+        return new EmailMessage.Builder();
     }
 
     public static class Builder {
@@ -91,11 +118,6 @@ public class EmailMessage {
         }
 
     }
-
-    public static Builder builder() {
-        return new EmailMessage.Builder();
-    }
-
 
 }
 
