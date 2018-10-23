@@ -39,7 +39,22 @@ public class Test {
                     }
                     break;
                 case 3:
-                    
+                    System.out.println("Wybierz 2 punkty, między którymi chcesz wyznaczyć odległość: ");
+                    int i = 1;
+                    for(Punkt3D punkt : punkty) {
+                        System.out.printf("%d. (%f; %f; %f)\n", i, punkt.getX(), punkt.getY(), punkt.getZ());
+                        ++i;
+                    }
+                    int a = 0, b = 0;
+                    try {
+                    InputStreamReader rd = new InputStreamReader(System.in);
+                    BufferedReader bfr = new BufferedReader(rd);
+                    a = Integer.parseInt(bfr.readLine());
+                    b = Integer.parseInt(bfr.readLine());
+                    } catch(IOException e){e.printStackTrace();}
+                    double dist = punkty.get(a - 1).distance(punkty.get(b - 1));
+                    System.out.printf("Obliczony dystans: %f\n", dist);
+
                     break;
                 case 4:
                     break;
