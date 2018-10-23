@@ -24,7 +24,7 @@ public class Polybius implements algorithm {
     }
 
     public String decrypt(String word) {
-        char[] decryptedWord = new char[word.length() /3];
+        char[] decryptedWord = new char[word.length() / 3 + 1];
 
         for(int i = 0 ; i < word.length(); i += 3) {
             int temp =  (word.charAt(i) - '0') * 10 + (word.charAt(i + 1) - '0');
