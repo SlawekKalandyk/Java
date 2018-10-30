@@ -19,24 +19,24 @@ public class MicroDVD {
             Matcher m = p.matcher(line);
             m.matches();
 
-            try{
+            try {
                 Pattern numbers = Pattern.compile("(\\d+)");
                 numbers.matcher(m.group(1));
                 numbers.matcher(m.group(2));
-            } catch(Exception e) {
+            } catch (Exception e) {
                 throw new InvalidInputFormat();
             }
 
             int start = Integer.parseInt(m.group(1));
             int end = Integer.parseInt(m.group(2));
 
-            if(start > end)
+            if (start > end)
                 throw new SubtitleEndsBeforeItStarts(start, end);
 
             int startDelay = start + frameOffset;
             int endDelay = end + frameOffset;
 
-            if(startDelay < 0 || endDelay < 0)
+            if (startDelay < 0 || endDelay < 0)
                 throw new NegativeFrameAfterDelaying();
 
             processedLine += "{" + Integer.toString(startDelay) + "}";

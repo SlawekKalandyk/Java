@@ -13,12 +13,14 @@ public class MainClass {
         String choice = argv[2];
 
         if (choice.equals("crypt")) {
+            //if(choice == 1) {
             System.out.println("Wybierz szyfr:\n1. Wpisz rot11\n2. Wpisz polybius");
             //String choice2 = JIn.getString();
             String choice2 = argv[3];
             Cryptographer.cryptfile(inputFile, outputFile, choice2);
 
         } else if (choice.equals("decrypt")) {
+            //} else if (choice == 2) {
             System.out.println("Wybierz szyfr:\n1. Wpisz rot11\n2. Wpisz polybius");
             //String choice2 = JIn.getString();
             String choice2 = argv[3];
