@@ -8,7 +8,7 @@ import java.util.*;
 
 public class HeapTest {
 
-    public boolean checkIfIsHeap(Heap heap) {
+    public boolean checkIfIsHeap(Heap heap) { //kiedy próbuje zgeneralizować robią się tu problemy
         for (int i = 0; i < heap.size() / 2; ++i) {
             Double parent = 0.0;
             Double left;

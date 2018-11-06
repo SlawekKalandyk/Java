@@ -44,7 +44,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Heap.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Heap.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/kis/java2015/domain/Heap.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="15">
@@ -68,11 +68,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HeapTest.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="HeapTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/pl/edu/agh/kis/java2015/domain/HeapTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="109" column="22" lean-forward="true" selection-start-line="109" selection-start-column="22" selection-end-line="109" selection-end-column="22" />
+            <state relative-caret-position="150">
+              <caret line="10" column="98" selection-start-line="10" selection-start-column="98" selection-end-line="10" selection-end-column="98" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -600,8 +600,8 @@
       <list>
         <option value="$PROJECT_DIR$/src/main/java/pl/edu/agh/kis/java2015/main/App.java" />
         <option value="$PROJECT_DIR$/build.gradle" />
-        <option value="$PROJECT_DIR$/src/test/java/pl/edu/agh/kis/java2015/domain/HeapTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/pl/edu/agh/kis/java2015/domain/Heap.java" />
+        <option value="$PROJECT_DIR$/src/test/java/pl/edu/agh/kis/java2015/domain/HeapTest.java" />
       </list>
     </option>
   </component>
@@ -937,14 +937,11 @@
       <workItem from="1541004060526" duration="32000" />
       <workItem from="1541013352693" duration="8770000" />
       <workItem from="1541366428023" duration="5751000" />
-      <workItem from="1541496264253" duration="8352000" />
+      <workItem from="1541496264253" duration="8432000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="HeapTest_extractsMaxFromTheHeapAndRemainsAHeap - 2018.11.06 at 12h 03m 36s.xml">
-      <configuration name="HeapTest.extractsMaxFromTheHeapAndRemainsAHeap" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="HeapTest_extractsMaxFromTheHeapAndRemainsAHeap - 2018.11.06 at 12h 04m 36s.xml">
       <configuration name="HeapTest.extractsMaxFromTheHeapAndRemainsAHeap" configurationId="JUnit" />
     </history-entry>
@@ -972,9 +969,12 @@
     <history-entry file="HeapTest - 2018.11.06 at 12h 31m 01s.xml">
       <configuration name="HeapTest" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="HeapTest - 2018.11.06 at 12h 48m 54s.xml">
+      <configuration name="HeapTest" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26559000" />
+    <option name="totallyTimeSpent" value="26639000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -998,8 +998,8 @@
       <window_info anchor="right" id="Maven Projects" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3299748" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.3299748" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3299748" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.3299748" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1770891" />
@@ -1273,16 +1273,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/pl/edu/agh/kis/java2015/domain/HeapTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="109" column="22" lean-forward="true" selection-start-line="109" selection-start-column="22" selection-end-line="109" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/kis/java2015/domain/Heap.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
@@ -1292,6 +1282,16 @@
             <element signature="e#3178#3209#0" expanded="true" />
             <element signature="e#4964#4995#0" expanded="true" />
             <element signature="e#5530#5561#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/pl/edu/agh/kis/java2015/domain/HeapTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="98" selection-start-line="10" selection-start-column="98" selection-end-line="10" selection-end-column="98" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
