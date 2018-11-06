@@ -72,7 +72,7 @@ public class StringCalculator extends Calculator {
             for (int i = 0; i < result.length() - x.length(); ++i) {
                 if (result.substring(i,  i + x.length()).equals(x)) {
                     subtractionResult += result.substring(counter, i);
-                    counter = i;
+                    counter = i + x.length();
                 }
             }
         }
