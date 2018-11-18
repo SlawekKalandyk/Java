@@ -2,6 +2,7 @@ package Mainpack;
 
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +15,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Controller {
@@ -49,8 +51,20 @@ public class Controller {
         series1.setName("Histogram");
         columnAmountLabel.setText(columns.toString());
 
-        //ObservableList<Double> observableDataList = FXCollections.observableArrayList(dataList);
-        //dataListView.setItems(observableDataList);
+        dataListView.getItems().addListener(new ListChangeListener<Double>() {
+            @Override
+            public void onChanged(Change c) {
+                while(c.next()) {
+                    if(c.wasRemoved()) {
+                        int removedFrom = c.getFrom();
+                        int removedTo = c.getTo();
+                        for(int i = removedFrom; i <= removedTo; ++i) {
+                            removeFromHistogram(i);
+                        }
+                    }
+                }
+            }
+        });
         dataListView.setCellFactory(new dataListCellFactory());
 
         histogramChart.getData().add(series1);
@@ -98,7 +112,6 @@ public class Controller {
 
         for (int i = 1; i <= columns; ++i) {
             Double temp = intervals.get((i - 1) * 2) + singleColumn;
-            System.out.println(temp);
             intervals.add(temp - 1);
             intervals.add(temp);
         }
@@ -132,7 +145,6 @@ public class Controller {
     }
 
     public void updateChart() {
-        System.out.println(intervals);
         series1.getData().clear();
         for (int i = 1; i < intervals.size(); i += 2) {
             String interval = intervals.get(i - 1).toString() +
@@ -146,6 +158,17 @@ public class Controller {
         while (input > intervals.get(i))
             ++i;
         counts.set(i / 2, counts.get(i / 2) - 1);
+        dataList.remove(input);
+
+        updateChart();
+    }
+
+    public void removeFromHistogram(int index) {
+        int i = 0;
+        while (dataList.get(index) > intervals.get(i))
+            ++i;
+        counts.set(i / 2, counts.get(i / 2) - 1);
+        dataList.remove(index);
 
         updateChart();
     }
