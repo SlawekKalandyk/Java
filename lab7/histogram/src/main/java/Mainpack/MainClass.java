@@ -14,12 +14,6 @@ import java.io.FileInputStream;
 public class MainClass extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        /*FXMLLoader loader = new FXMLLoader();
-        String fxmlPath = "src/main/resources/fxml/GuiFile.fxml";
-        FileInputStream fxmlStream = new FileInputStream(fxmlPath);
-
-        TabPane root = loader.load(fxmlStream);*/
-
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/GuiFile.fxml"));
         Scene scene = new Scene(root);
 

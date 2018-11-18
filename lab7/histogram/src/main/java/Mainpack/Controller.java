@@ -1,5 +1,7 @@
 package Mainpack;
 
+import javafx.beans.Observable;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,6 +10,7 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
 import java.util.ArrayList;
@@ -21,6 +24,8 @@ public class Controller {
     @FXML
     public Label columnAmountLabel;
     @FXML
+    public ListView dataListView;
+    @FXML
     private BarChart<String, Number> histogramChart;
     @FXML
     private CategoryAxis xAxis;
@@ -29,9 +34,11 @@ public class Controller {
 
     private XYChart.Series series1 = new XYChart.Series();
     private ArrayList<Integer> counts = new ArrayList<>();
-    private ArrayList<Integer> dataList = new ArrayList<>();
-    private Integer columns = 0;
-    private Integer maxData = 0;
+    private ArrayList<Double> dataList = new ArrayList<>();
+    private Integer columns = 10;
+    private Double minData = 0.0;
+    private Double maxData = 0.0;
+    private ArrayList<Double> intervals = new ArrayList<>();
 
     public Controller() {
     }
@@ -42,64 +49,104 @@ public class Controller {
         series1.setName("Histogram");
         columnAmountLabel.setText(columns.toString());
 
-/*
-        series1.getData().add(new XYChart.Data<>("0-10", counts.get(0)));
-
-        series1.getData().add(new XYChart.Data<>("11-20", counts.get(1)));
-
-        series1.getData().add(new XYChart.Data<>("21-30", counts.get(2)));
-
-        series1.getData().add(new XYChart.Data<>("31-40", counts.get(3)));
-
-        series1.getData().add(new XYChart.Data<>("41-50", counts.get(4)));
-*/
+        //ObservableList<Double> observableDataList = FXCollections.observableArrayList(dataList);
+        //dataListView.setItems(observableDataList);
+        dataListView.setCellFactory(new dataListCellFactory());
 
         histogramChart.getData().add(series1);
-
     }
 
     public void inputData(ActionEvent actionEvent) {
-        Integer input = Integer.parseInt(inputField.getCharacters().toString());
+        Double input = Double.parseDouble(inputField.getCharacters().toString());
 
-        for(int i = 0; true; ++i) {
-            if(i == dataList.size() || dataList.get(i) > input) {
-                dataList.add(input);
+        for (int i = 0; true; ++i) {
+            if (i == dataList.size() || dataList.get(i) > input) {
+                dataList.add(i, input);
+                dataListView.getItems().add(i, input);
                 break;
             }
         }
 
-        if(counts.isEmpty()) {
-            maxData = input;
-            columns += 1;
+        minData = dataList.get(0);
+        maxData = dataList.get(dataList.size() - 1);
+
+        if (counts.isEmpty()) {
             columnAmountLabel.setText(columns.toString());
-            String interval = "0 - " + maxData.toString();
-            counts.add(1);
-            series1.getData().add(new XYChart.Data<>(interval, counts.get(0)));
+            fillHistogramWithData();
             columnAmountField.setEditable(true);
         } else {
-            if (input > maxData)
-                maxData = input;
-
-            int singleColumn = (int) Math.ceil(maxData / columns);
-
+            if (input >= maxData || input <= minData)
+                fillHistogramWithData();
+            else
+                insertIntoHistogram(input);
         }
 
-        //series1.getData().add(new XYChart.Data<>("41-50", counts.get(4)));
-
-        /*
-        counts.set(0, counts.get(0) + 1);
-        series1.getData().remove(0);
-        series1.getData().add(0, new XYChart.Data<>("0-10", counts.get(0)));
-        */
         inputField.clear();
     }
 
     public void changeColumnAmount(ActionEvent actionEvent) {
         columns = Integer.parseInt(columnAmountField.getCharacters().toString());
         columnAmountLabel.setText(columns.toString());
-
-
-
+        fillHistogramWithData();
         columnAmountField.clear();
+    }
+
+    private void fillHistogramWithData() {
+        Double singleColumn = Math.ceil((maxData + 1 - minData) / columns);
+        intervals.clear();
+        intervals.add(minData);
+
+        for (int i = 1; i <= columns; ++i) {
+            Double temp = intervals.get((i - 1) * 2) + singleColumn;
+            System.out.println(temp);
+            intervals.add(temp - 1);
+            intervals.add(temp);
+        }
+        intervals.remove(intervals.size() - 1);
+
+        counts.clear();
+        for (int i = 0; i < columns; ++i)
+            counts.add(0);
+
+        int j = 0;
+        for (int i = 1; i < intervals.size(); i += 2) {
+            int counter = 0;
+            while (j < dataList.size() && i < intervals.size()
+                    && dataList.get(j) <= intervals.get(i)) {
+                ++counter;
+                ++j;
+            }
+            counts.set(i / 2, counts.get(i / 2) + counter);
+        }
+
+        updateChart();
+    }
+
+    public void insertIntoHistogram(Double input) {
+        int i = 0;
+        while (input > intervals.get(i))
+            ++i;
+        counts.set(i / 2, counts.get(i / 2) + 1);
+
+        updateChart();
+    }
+
+    public void updateChart() {
+        System.out.println(intervals);
+        series1.getData().clear();
+        for (int i = 1; i < intervals.size(); i += 2) {
+            String interval = intervals.get(i - 1).toString() +
+                    " - " + intervals.get(i).toString();
+            series1.getData().add(new XYChart.Data<>(interval, counts.get((i - 1) / 2)));
+        }
+    }
+
+    public void removeFromHistogram(Double input) {
+        int i = 0;
+        while (input > intervals.get(i))
+            ++i;
+        counts.set(i / 2, counts.get(i / 2) - 1);
+
+        updateChart();
     }
 }

@@ -4,10 +4,12 @@
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Text?>
 
 <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="/css/style.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Mainpack.Controller">
@@ -32,9 +34,15 @@
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
                   <TextField fx:id="inputField" layoutX="10.0" layoutY="10.0" onAction="#inputData" promptText="Input data" />
-                  <TextField fx:id="columnAmountField" editable="false" layoutX="200.0" layoutY="10.0" onAction="#changeColumnAmount" promptText="Column count" />
+                  <TextField fx:id="columnAmountField" editable="false" layoutX="200.0" layoutY="10.0" onAction="#changeColumnAmount" promptText="Column amount" />
                   <Label fx:id="columnAmountLabel" layoutX="455.0" layoutY="15.0" text="Label" />
                   <Text layoutX="386.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Currently: " />
+                  <Text layoutX="10.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Only Integer input at the moment" />
+                  <Pane layoutX="10.0" layoutY="84.0" prefHeight="450.0" prefWidth="300.0">
+                     <children>
+                        <ListView fx:id="dataListView" prefHeight="450.0" prefWidth="300.0" />
+                     </children>
+                  </Pane>
                </children></AnchorPane>
       </content>
     </Tab>
