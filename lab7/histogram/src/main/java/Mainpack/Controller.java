@@ -14,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.util.StringConverter;
+import javafx.util.converter.NumberStringConverter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,13 +36,7 @@ public class Controller {
     @FXML
     private NumberAxis yAxis;
 
-    private XYChart.Series series1 = new XYChart.Series();
-    private ArrayList<Integer> counts = new ArrayList<>();
-    private ArrayList<Double> dataList = new ArrayList<>();
-    private Integer columns = 10;
-    private Double minData = 0.0;
-    private Double maxData = 0.0;
-    private ArrayList<Double> intervals = new ArrayList<>();
+    private Histogram histogram = new Histogram();
 
     public Controller() {
     }
@@ -49,18 +44,29 @@ public class Controller {
     public void initialize() {
         xAxis.setLabel("DataSpread");
         yAxis.setLabel("Count");
-        series1.setName("Histogram");
-        columnAmountLabel.setText(columns.toString());
+
+        /* for 1st input it doesn't show '1' on yAxis
+        yAxis.setTickLabelFormatter(new NumberStringConverter() {
+            @Override
+            public String toString(Number number) {
+                if (number.intValue() == number.doubleValue())
+                    return "" + number.intValue();
+
+                return "";
+            }
+        });*/
+
+        columnAmountLabel.setText(histogram.getColumns().toString());
 
         dataListView.getItems().addListener(new ListChangeListener<Double>() {
             @Override
             public void onChanged(Change c) {
-                while(c.next()) {
-                    if(c.wasRemoved()) {
+                while (c.next()) {
+                    if (c.wasRemoved()) {
                         int removedFrom = c.getFrom();
                         int removedTo = c.getTo();
-                        for(int i = removedFrom; i <= removedTo; ++i) {
-                            removeFromHistogram(i);
+                        for (int i = removedFrom; i <= removedTo; ++i) {
+                            histogram.removeFromHistogram(i);
                         }
                     }
                 }
@@ -68,117 +74,39 @@ public class Controller {
         });
         dataListView.setCellFactory(new dataListCellFactory());
 
-        histogramChart.getData().add(series1);
+        histogramChart.getData().add(histogram.getSeries());
     }
 
     public void inputData(ActionEvent actionEvent) {
         Double input = Double.parseDouble(inputField.getCharacters().toString());
 
         for (int i = 0; true; ++i) {
-            if (i == dataList.size() || dataList.get(i) > input) {
-                dataList.add(i, input);
+            if (i == histogram.getDataList().size() || histogram.getDataList().get(i) > input) {
+                histogram.getDataList().add(i, input);
                 dataListView.getItems().add(i, input);
                 break;
             }
         }
 
-        minData = dataList.get(0);
-        maxData = dataList.get(dataList.size() - 1);
-
-        if (counts.isEmpty()) {
-            columnAmountLabel.setText(columns.toString());
-            fillHistogramWithData();
-            columnAmountField.setEditable(true);
-        } else {
-            if (input >= maxData || input <= minData)
-                fillHistogramWithData();
+        if (histogram.getCounts().isEmpty())
+            histogram.fillHistogramWithData();
+        else {
+            if (input >= histogram.getMaxData() || input <= histogram.getMinData())
+                histogram.fillHistogramWithData();
             else
-                insertIntoHistogram(input);
+                histogram.insertIntoHistogram(input);
         }
 
         inputField.clear();
     }
 
     public void changeColumnAmount(ActionEvent actionEvent) {
-        columns = Integer.parseInt(columnAmountField.getCharacters().toString());
-        columnAmountLabel.setText(columns.toString());
+        histogram.setColumns(Integer.parseInt(columnAmountField.getCharacters().toString()));
+        columnAmountLabel.setText(histogram.getColumns().toString());
 
-        if(dataList.size() > 0)
-            fillHistogramWithData();
+        if (histogram.getDataList().size() > 0)
+            histogram.fillHistogramWithData();
 
         columnAmountField.clear();
-    }
-
-    private void fillHistogramWithData() {
-        Double singleColumn = Math.ceil((maxData + 1 - minData) / columns);
-        intervals.clear();
-        intervals.add(minData);
-
-        for (int i = 1; i <= columns; ++i) {
-            Double temp = intervals.get((i - 1) * 2) + singleColumn;
-            intervals.add(temp - 1);
-            intervals.add(temp);
-        }
-        intervals.remove(intervals.size() - 1);
-
-        counts.clear();
-        for (int i = 0; i < columns; ++i)
-            counts.add(0);
-
-        int j = 0;
-        for (int i = 1; i < intervals.size(); i += 2) {
-            int counter = 0;
-            while (j < dataList.size() && i < intervals.size()
-                    && dataList.get(j) <= intervals.get(i)) {
-                ++counter;
-                ++j;
-            }
-            counts.set(i / 2, counts.get(i / 2) + counter);
-        }
-
-        updateChart();
-    }
-
-    private void insertIntoHistogram(Double input) {
-        int i = 0;
-        while (input > intervals.get(i))
-            ++i;
-        counts.set(i / 2, counts.get(i / 2) + 1);
-
-        updateChart();
-    }
-
-    private void updateChart() {
-        series1.getData().clear();
-        for (int i = 1; i < intervals.size(); i += 2) {
-            String interval = intervals.get(i - 1).toString() +
-                    " - " + intervals.get(i).toString();
-            series1.getData().add(new XYChart.Data<>(interval, counts.get((i - 1) / 2)));
-        }
-    }
-
-    private void removeFromHistogram(int index) {
-        if(dataList.size() > 1) {
-            if (index == dataList.size() - 1)
-                maxData = dataList.get(dataList.size() - 2);
-            else if (index == 0)
-                minData = dataList.get(1);
-
-            int i = 0;
-            while (dataList.get(index) > intervals.get(i))
-                ++i;
-            counts.set(i / 2, counts.get(i / 2) - 1);
-            dataList.remove(index);
-
-            fillHistogramWithData();
-        } else {
-            dataList.remove(index);
-            maxData = 0.0;
-            minData = 0.0;
-            intervals.clear();
-            counts.clear();
-            updateChart();
-        }
-
     }
 }

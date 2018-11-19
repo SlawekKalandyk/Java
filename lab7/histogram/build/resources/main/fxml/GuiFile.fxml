@@ -18,7 +18,7 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <BarChart fx:id="histogramChart" barGap="0.0" categoryGap="0.0" layoutX="100.0" layoutY="50.0" prefHeight="450.0" prefWidth="600.0">
+                  <BarChart fx:id="histogramChart" barGap="0.0" categoryGap="0.0" layoutX="100.0" layoutY="50.0" prefHeight="450.0" prefWidth="600.0" legendVisible="false">
                     <xAxis>
                       <CategoryAxis side="BOTTOM" fx:id="xAxis" />
                     </xAxis>
@@ -29,12 +29,12 @@
                </children></AnchorPane>
       </content>
     </Tab>
-    <Tab text="Dane">
+    <Tab text="Data">
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
                   <TextField fx:id="inputField" layoutX="10.0" layoutY="10.0" onAction="#inputData" promptText="Input data" />
-                  <TextField fx:id="columnAmountField" editable="false" layoutX="200.0" layoutY="10.0" onAction="#changeColumnAmount" promptText="Column amount" />
+                  <TextField fx:id="columnAmountField" layoutX="200.0" layoutY="10.0" onAction="#changeColumnAmount" promptText="Column amount" />
                   <Label fx:id="columnAmountLabel" layoutX="455.0" layoutY="15.0" text="Label" />
                   <Text layoutX="386.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Currently: " />
                   <Text layoutX="10.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Only Integer input at the moment" />
