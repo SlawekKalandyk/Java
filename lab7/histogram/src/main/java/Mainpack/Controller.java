@@ -13,6 +13,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.util.StringConverter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,7 +102,10 @@ public class Controller {
     public void changeColumnAmount(ActionEvent actionEvent) {
         columns = Integer.parseInt(columnAmountField.getCharacters().toString());
         columnAmountLabel.setText(columns.toString());
-        fillHistogramWithData();
+
+        if(dataList.size() > 0)
+            fillHistogramWithData();
+
         columnAmountField.clear();
     }
 
@@ -135,7 +139,7 @@ public class Controller {
         updateChart();
     }
 
-    public void insertIntoHistogram(Double input) {
+    private void insertIntoHistogram(Double input) {
         int i = 0;
         while (input > intervals.get(i))
             ++i;
@@ -144,7 +148,7 @@ public class Controller {
         updateChart();
     }
 
-    public void updateChart() {
+    private void updateChart() {
         series1.getData().clear();
         for (int i = 1; i < intervals.size(); i += 2) {
             String interval = intervals.get(i - 1).toString() +
@@ -153,23 +157,28 @@ public class Controller {
         }
     }
 
-    public void removeFromHistogram(Double input) {
-        int i = 0;
-        while (input > intervals.get(i))
-            ++i;
-        counts.set(i / 2, counts.get(i / 2) - 1);
-        dataList.remove(input);
+    private void removeFromHistogram(int index) {
+        if(dataList.size() > 1) {
+            if (index == dataList.size() - 1)
+                maxData = dataList.get(dataList.size() - 2);
+            else if (index == 0)
+                minData = dataList.get(1);
 
-        updateChart();
-    }
+            int i = 0;
+            while (dataList.get(index) > intervals.get(i))
+                ++i;
+            counts.set(i / 2, counts.get(i / 2) - 1);
+            dataList.remove(index);
 
-    public void removeFromHistogram(int index) {
-        int i = 0;
-        while (dataList.get(index) > intervals.get(i))
-            ++i;
-        counts.set(i / 2, counts.get(i / 2) - 1);
-        dataList.remove(index);
+            fillHistogramWithData();
+        } else {
+            dataList.remove(index);
+            maxData = 0.0;
+            minData = 0.0;
+            intervals.clear();
+            counts.clear();
+            updateChart();
+        }
 
-        updateChart();
     }
 }
