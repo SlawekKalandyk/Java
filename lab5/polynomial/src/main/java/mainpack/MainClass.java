@@ -12,7 +12,7 @@ public class MainClass extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/GuiFile.fxml"));
         Scene scene = new Scene(root);
 
-        primaryStage.setTitle("Polynomial");
+        primaryStage.setTitle("Polynomial Chart");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
