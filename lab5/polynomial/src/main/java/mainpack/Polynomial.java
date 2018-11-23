@@ -1,6 +1,7 @@
 package mainpack;
 
 import javafx.scene.chart.XYChart;
+import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 
@@ -22,8 +23,8 @@ public class Polynomial {
         series.getData().clear();
         chartPoints.clear();
 
-        Double point = beginXRange;
-        while (point < endXRange) {
+        Double point = beginXRange - calculationJump;
+        while (point <= endXRange + calculationJump) {
             Double temp = 0.0;
 
             for (int i = 0; i < coefficients.size(); ++i) {
@@ -34,9 +35,18 @@ public class Polynomial {
             point += calculationJump;
         }
 
+        /*
+        Adding data to series has to be like this to show the lines without dots,
+        createSymbols="false" creates a weird bug where some points jump straight to y = 0
+        where they shouldn't
+         */
         for (int i = 0; i < chartPoints.size(); ++i) {
-            series.getData().add(new XYChart.Data<>(
-                    beginXRange + i * calculationJump, chartPoints.get(i)));
+            XYChart.Data newData = new XYChart.Data<>(
+                    beginXRange + i * calculationJump, chartPoints.get(i));
+            Rectangle rect = new Rectangle(0,0);
+            rect.setVisible(false);
+            newData.setNode(rect);
+            series.getData().add(newData);
         }
     }
 

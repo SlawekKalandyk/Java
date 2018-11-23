@@ -89,11 +89,14 @@ public class Controller {
         polynomial.calculateChartPoints();
     }
 
+    /* TODO: function to calculate remaining points upon range change
+    TODO: exceptions
+     */
     public void onBeginXAxisChanged(ActionEvent actionEvent) {
         Double newBeginXRange = Double.parseDouble(beginXAxisInput.getText());
         polynomial.setBeginXRange(newBeginXRange);
         xAxis.setLowerBound(newBeginXRange);
-        polynomial.calculateChartPoints();
+        //polynomial.calculateChartPoints();
         beginXAxisInput.setPromptText("Currently: " + newBeginXRange);
         beginXAxisInput.clear();
     }
@@ -102,7 +105,7 @@ public class Controller {
         Double newBeginYRange = Double.parseDouble(beginYAxisInput.getText());
         polynomial.setBeginYrange(newBeginYRange);
         yAxis.setLowerBound(newBeginYRange);
-        polynomial.calculateChartPoints();
+        //polynomial.calculateChartPoints();
         beginYAxisInput.setPromptText("Currently: " + newBeginYRange);
         beginYAxisInput.clear();
     }
@@ -111,7 +114,7 @@ public class Controller {
         Double newEndXRange = Double.parseDouble(endXAxisInput.getText());
         polynomial.setEndXRange(newEndXRange);
         xAxis.setUpperBound(newEndXRange);
-        polynomial.calculateChartPoints();
+        //polynomial.calculateChartPoints();
         endXAxisInput.setPromptText("Currently: " + newEndXRange);
         endXAxisInput.clear();
     }
@@ -120,7 +123,7 @@ public class Controller {
         Double newEndYRange = Double.parseDouble(endYAxisInput.getText());
         polynomial.setEndYrange(newEndYRange);
         yAxis.setUpperBound(newEndYRange);
-        polynomial.calculateChartPoints();
+        //polynomial.calculateChartPoints();
         endYAxisInput.setPromptText("Currently: " + newEndYRange);
         endYAxisInput.clear();
     }
@@ -128,7 +131,7 @@ public class Controller {
     public void onCalculationJumpChanged(ActionEvent actionEvent) {
         Double newCalculationJump = Double.parseDouble(calculationJumpInput.getText());
         polynomial.setCalculationJump(newCalculationJump);
-        polynomial.calculateChartPoints();
+        //polynomial.calculateChartPoints();
         calculationJumpInput.setPromptText("Currently: " + newCalculationJump);
         calculationJumpInput.clear();
     }

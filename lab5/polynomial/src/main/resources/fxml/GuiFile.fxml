@@ -18,7 +18,7 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainpack.Controller">
    <children>
-      <LineChart fx:id="polynomialChart" layoutX="14.0" layoutY="160.0" legendVisible="false" createSymbols="false">
+      <LineChart fx:id="polynomialChart" layoutX="14.0" layoutY="160.0" legendVisible="false" >
         <xAxis>
           <NumberAxis label="x" side="BOTTOM" fx:id="xAxis" />
         </xAxis>
