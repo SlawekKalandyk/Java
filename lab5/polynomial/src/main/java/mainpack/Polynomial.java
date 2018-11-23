@@ -23,7 +23,7 @@ public class Polynomial {
         chartPoints.clear();
 
         Double point = beginXRange;
-        while (point <= endXRange) {
+        while (point < endXRange) {
             Double temp = 0.0;
 
             for (int i = 0; i < coefficients.size(); ++i) {
