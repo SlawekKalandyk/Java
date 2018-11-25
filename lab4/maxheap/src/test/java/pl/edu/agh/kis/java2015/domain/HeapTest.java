@@ -31,7 +31,6 @@ public class HeapTest {
                         return false;
                 }
             }
-
         }
 
         return true;

@@ -124,7 +124,7 @@ public class Heap {
     public static Heap merge(Heap heap1, Heap heap2) {
         Heap newHeap = new Heap();
         contentsOfOneHeapToAnother(newHeap, heap1);
-        contentsOfOneHeapToAnother(newHeap, heap1);
+        contentsOfOneHeapToAnother(newHeap, heap2);
         /*
         newHeap.insert(heap1.top());
         for (int i = 0; i < heap1.size() / 2; ++i) {
