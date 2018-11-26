@@ -18,19 +18,19 @@ public class PeopleDB implements Iterable<Person> {
         return people.iterator();
     }
 
-    public ArrayList<Person> filterByFullName(String fullName) {
-        ArrayList<Person> filteredPeople = new ArrayList<>();
+    public PeopleDB filterByName(String name) {
+        PeopleDB filteredPeople = new PeopleDB();
 
         for(Person p: people) {
-            if(p.getFullName().equals(fullName))
+            if(p.getName().equals(name))
                 filteredPeople.add(p);
         }
 
         return filteredPeople;
     }
 
-    public ArrayList<Person> filterBySurname(String surname) {
-        ArrayList<Person> filteredPeople = new ArrayList<>();
+    public PeopleDB filterBySurname(String surname) {
+        PeopleDB filteredPeople = new PeopleDB();
 
         for(Person p: people) {
             if(p.getSurname().equals(surname))
@@ -40,12 +40,30 @@ public class PeopleDB implements Iterable<Person> {
         return filteredPeople;
     }
 
-    public Person filterByPesel(String pesel) {
+    public PeopleDB filterByPesel(String pesel) {
+        PeopleDB singlePersonDB = new PeopleDB();
         for(Person p: people) {
-            if(p.getPesel().equals(pesel))
-                return p;
+            if(p.getPesel().equals(pesel)) {
+                singlePersonDB.add(p);
+                return singlePersonDB;
+            }
         }
 
         return null;
+    }
+
+    public PeopleDB filterByPhone(String phone) {
+        PeopleDB filteredPeople = new PeopleDB();
+
+        for(Person p: people) {
+            if(p.getPhone().equals(phone))
+                filteredPeople.add(p);
+        }
+
+        return filteredPeople;
+    }
+
+    public void add(Person newPerson) {
+        people.add(newPerson);
     }
 }

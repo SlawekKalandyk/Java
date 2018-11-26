@@ -1,0 +1,7 @@
+.columnCenterLeftAlignment {
+    -fx-alignment: CENTER-LEFT;
+}
+
+.deleteButtons {
+    -fx-alignment: CENTER;
+}

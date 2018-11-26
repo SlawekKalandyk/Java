@@ -11,6 +11,12 @@ public class Person {
         this.pesel = pesel;
     }
 
+    public Person(String name, String surname, String phone, String pesel) {
+        this.fullName = name + " " + surname;
+        this.phone = phone;
+        this.pesel = pesel;
+    }
+
     public String getFullName() {
         return fullName;
     }
@@ -39,7 +45,7 @@ public class Person {
         return fullName.split(" ")[1];
     }
 
-    public String getFirstName() {
+    public String getName() {
         return fullName.split(" ")[0];
     }
 }
