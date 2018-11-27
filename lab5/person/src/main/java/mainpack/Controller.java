@@ -1,10 +1,14 @@
 package mainpack;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+
+import java.util.List;
 
 public class Controller {
     @FXML
@@ -53,8 +57,20 @@ public class Controller {
         deleteColumn.setCellValueFactory(new PropertyValueFactory<>("Delete"));
         deleteColumn.setCellFactory(new DeleteButtonCellFactory());
 
-        peopleTableView.getItems().add(new Person("John Doe", "985 734 934", "95672857263"));
+        peopleTableView.getItems().addListener(new ListChangeListener<Person>() {
+            @Override
+            public void onChanged(Change c) {
+                while (c.next()) {
+                    if (c.wasRemoved()) {
+                        List<Person> removed = c.getRemoved();
+                        for (Person p : removed)
+                            peopleDataBase.remove(p);
+                    }
+                }
+            }
+        });
     }
+
     /*
     TODO: detailed conditions for adding a new person (like pesel validation)
      */
@@ -64,7 +80,7 @@ public class Controller {
         String surname = surnameInput.getText();
         String phone = phoneInput.getText();
 
-        if(pesel.isEmpty() || name.isEmpty() || surname.isEmpty() || phone.isEmpty())
+        if (pesel.isEmpty() || name.isEmpty() || surname.isEmpty() || phone.isEmpty())
             return;
         else {
             Person newPerson = new Person(name, surname, phone, pesel);
@@ -79,6 +95,28 @@ public class Controller {
     }
 
     public void onFilterButtonClicked(ActionEvent actionEvent) {
-
+        peopleTableView.setItems(FXCollections.observableArrayList(
+                peopleDataBase.
+                        filterByPesel(peselFilterInput.getText()).
+                        filterByName(nameFilterInput.getText()).
+                        filterBySurname(surnameFilterInput.getText()).
+                        filterByPhone(phoneFilterInput.getText()).
+                        getPeople()
+        ));
+        /*
+        TODO: this filter is temporary, change using peopleTableView.getItems().filtered(...)
+         */
+        peopleTableView.getItems().addListener(new ListChangeListener<Person>() {
+            @Override
+            public void onChanged(Change c) {
+                while (c.next()) {
+                    if (c.wasRemoved()) {
+                        List<Person> removed = c.getRemoved();
+                        for (Person p : removed)
+                            peopleDataBase.remove(p);
+                    }
+                }
+            }
+        });
     }
 }
