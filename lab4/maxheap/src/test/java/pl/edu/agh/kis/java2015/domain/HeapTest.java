@@ -8,7 +8,7 @@ import java.util.*;
 
 public class HeapTest {
 
-    public boolean checkIfIsHeap(Heap heap) { //kiedy próbuje zgeneralizować robią się tu problemy
+    public boolean checkIfIsHeap(Heap<Double> heap) {
         for (int i = 0; i < heap.size() / 2; ++i) {
             Double parent = 0.0;
             Double left;
@@ -39,8 +39,8 @@ public class HeapTest {
     @Test
     public void insert0intoNewHeap_topIs0() {
 
-        Heap heap = new Heap();
-        heap.insert(0);
+        Heap<Double> heap = new Heap<>();
+        heap.insert(0.0);
 
         assertEquals("size should be 1", 1, heap.size());
         assertEquals(0, heap.top(), 0.001);
@@ -50,9 +50,9 @@ public class HeapTest {
     @Test
     public void insert0AndThen2intoNewHeap_topIs2() {
 
-        Heap heap = new Heap();
-        heap.insert(0);
-        heap.insert(2);
+        Heap<Double> heap = new Heap<>();
+        heap.insert(0.0);
+        heap.insert(2.0);
 
         assertEquals("size should be 2", 2, heap.size());
         assertEquals(2, heap.top(), 0.001);
@@ -61,24 +61,24 @@ public class HeapTest {
     @Test
     public void insert0And2And3And5And6intoNewHeap_topIs6() {
 
-        Heap heap = new Heap();
-        heap.insert(0);
-        heap.insert(2);
-        heap.insert(3);
-        heap.insert(5);
-        heap.insert(6);
+        Heap<Double> heap = new Heap<>();
+        heap.insert(0.0);
+        heap.insert(2.0);
+        heap.insert(3.0);
+        heap.insert(5.0);
+        heap.insert(6.0);
 
         assertEquals(6, heap.top(), 0.001);
     }
 
     @Test
     public void extractsMaxFromTheHeapAndRemainsAHeap() {
-        Heap heap = new Heap();
-        heap.insert(0);
-        heap.insert(2);
-        heap.insert(8);
-        heap.insert(5);
-        heap.insert(6);
+        Heap<Double> heap = new Heap<>();
+        heap.insert(0.0);
+        heap.insert(2.0);
+        heap.insert(8.0);
+        heap.insert(5.0);
+        heap.insert(6.0);
         heap.printHeap();
         assertEquals(8, heap.extract_max(), 0.001);
         assertTrue(checkIfIsHeap(heap));
@@ -94,7 +94,7 @@ public class HeapTest {
         list.add(3.6);
         list.add(3.4);
 
-        Heap heap = new Heap(list);
+        Heap<Double> heap = new Heap<>(list);
         heap.heapify();
         heap.replace(7.5);
         heap.printHeap();
@@ -111,7 +111,7 @@ public class HeapTest {
         list.add(3.6);
         list.add(3.4);
 
-        Heap heap = new Heap(list);
+        Heap<Double> heap = new Heap<>(list);
         heap.heapify();
         heap.replace(3.8);
         heap.printHeap();
@@ -128,7 +128,7 @@ public class HeapTest {
         list.add(3.6);
         list.add(3.4);
 
-        Heap heap = new Heap(list);
+        Heap<Double> heap = new Heap<>(list);
         heap.heapify();
         heap.printHeap();
         assertTrue(checkIfIsHeap(heap));
@@ -144,7 +144,7 @@ public class HeapTest {
         list1.add(3.6);
         list1.add(3.4);
 
-        Heap heap1 = new Heap(list1);
+        Heap<Double> heap1 = new Heap<>(list1);
         heap1.heapify();
 
         ArrayList<Double> list2 = new ArrayList<>();
@@ -154,10 +154,10 @@ public class HeapTest {
         list2.add(5.3);
         list2.add(2.2);
         list2.add(1.5);
-        Heap heap2 = new Heap(list2);
+        Heap<Double> heap2 = new Heap<>(list2);
         heap2.heapify();
 
-        Heap newHeap = Heap.merge(heap1, heap2);
+        Heap<Double> newHeap = Heap.merge(heap1, heap2);
         newHeap.printHeap();
         assertTrue(checkIfIsHeap(newHeap));
     }
@@ -172,7 +172,7 @@ public class HeapTest {
         list1.add(3.6);
         list1.add(3.4);
 
-        Heap heap1 = new Heap(list1);
+        Heap<Double> heap1 = new Heap<>(list1);
         heap1.heapify();
 
         ArrayList<Double> list2 = new ArrayList<>();
@@ -182,7 +182,7 @@ public class HeapTest {
         list2.add(5.3);
         list2.add(2.2);
         list2.add(1.5);
-        Heap heap2 = new Heap(list2);
+        Heap<Double> heap2 = new Heap<>(list2);
         heap2.heapify();
 
         heap1.meld(heap2);

@@ -3,20 +3,20 @@ package pl.edu.agh.kis.java2015.domain;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Heap {
+public class Heap <T extends Comparable<T>> {
 
     private int heapSize = 0;
-    private ArrayList<Double> tab = new ArrayList<>();
+    private ArrayList<T> tab = new ArrayList<>();
 
     public Heap() {
     }
 
-    public Heap(ArrayList<Double> arr) {
+    public Heap(ArrayList<T> arr) {
         tab = arr;
         heapSize = tab.size();
     }
 
-    public void insert(double value) {
+    public void insert(T value) {
         int currentIndex = heapSize;
         int parentIndex = parentIndex(currentIndex);
         tab.add(value);
@@ -29,17 +29,17 @@ public class Heap {
     }
 
     public boolean isChildGreaterThanParent(int currentIndex, int parentIndex) {
-        return tab.get(currentIndex) > tab.get(parentIndex);
+        return tab.get(currentIndex).compareTo(tab.get(parentIndex)) > 0;
     }
 
     public void swapElements(int currentIndex, int parentIndex) {
-        Double parentValue = parentValue(currentIndex);
-        Double currentValue = tab.get(currentIndex);
+        T parentValue = parentValue(currentIndex);
+        T currentValue = tab.get(currentIndex);
         tab.set(parentIndex, currentValue);
         tab.set(currentIndex, parentValue);
     }
 
-    public Double parentValue(int currentIndex) {
+    public T parentValue(int currentIndex) {
         return tab.get(parentIndex(currentIndex));
     }
 
@@ -55,11 +55,11 @@ public class Heap {
         return (2 * currentIndex + 2);
     }
 
-    public Double leftChildValue(int parentIndex) {
+    public T leftChildValue(int parentIndex) {
         return tab.get(leftChildIndex(parentIndex));
     }
 
-    public Double rightChildValue(int parentIndex) {
+    public T rightChildValue(int parentIndex) {
         return tab.get(rightChildIndex(parentIndex));
     }
 
@@ -67,12 +67,12 @@ public class Heap {
         return heapSize;
     }
 
-    public double top() {
+    public T top() {
         return tab.get(0);
     }
 
-    public double extract_max() {
-        Double extractedTop = top();
+    public T extract_max() {
+        T extractedTop = top();
         this.delete_max();
         return extractedTop;
     }
@@ -84,12 +84,12 @@ public class Heap {
         heapify();
     }
 
-    public void replace(Double value) {
-        Double removedTop = this.top();
+    public void replace(T value) {
+        T removedTop = this.top();
         tab.remove(removedTop);
         tab.add(0, value);
 
-        if (value < removedTop)
+        if (removedTop.compareTo(value) > 0)
             heapify();
     }
 
@@ -105,12 +105,12 @@ public class Heap {
         int rightChild = rightChildIndex(index);
 
         if (leftChild < heapSize) {
-            if (tab.get(leftChild) > tab.get(index))
+            if (tab.get(leftChild).compareTo(tab.get(index)) > 0)
                 largest = leftChild;
         }
 
         if (rightChild < heapSize) {
-            if (tab.get(rightChild) > tab.get(largest))
+            if (tab.get(rightChild).compareTo(tab.get(largest)) > 0)
                 largest = rightChild;
         }
         if (largest != index) {
@@ -125,51 +125,12 @@ public class Heap {
         Heap newHeap = new Heap();
         contentsOfOneHeapToAnother(newHeap, heap1);
         contentsOfOneHeapToAnother(newHeap, heap2);
-        /*
-        newHeap.insert(heap1.top());
-        for (int i = 0; i < heap1.size() / 2; ++i) {
-            if (heap1.leftChildIndex(i) < heap1.size()) {
-                if (heap1.leftChildValue(i) != null)
-                    newHeap.insert(heap1.leftChildValue(i));
-            }
-
-            if (heap1.rightChildIndex(i) < heap1.size()) {
-                if (heap1.rightChildValue(i) != null)
-                    newHeap.insert(heap1.rightChildValue(i));
-            }
-        }
-
-        newHeap.insert(heap2.top());
-        for (int i = 0; i < heap2.size() / 2; ++i) {
-            if (heap2.leftChildIndex(i) < heap2.size()) {
-                if (heap2.leftChildValue(i) != null)
-                    newHeap.insert(heap2.leftChildValue(i));
-            }
-
-            if (heap2.rightChildIndex(i) < heap2.size()) {
-                if (heap2.rightChildValue(i) != null)
-                    newHeap.insert(heap2.rightChildValue(i));
-            }
-        }*/
 
         return newHeap;
     }
 
     public void meld(Heap heap) {
         contentsOfOneHeapToAnother(this, heap);
-        /*
-        this.insert(heap.top());
-        for (int i = 0; i < heap.size() / 2; ++i) {
-            if (heap.leftChildIndex(i) < heap.size()) {
-                if (heap.leftChildValue(i) != null)
-                    this.insert(heap.leftChildValue(i));
-            }
-
-            if (heap.rightChildIndex(i) < heap.size()) {
-                if (heap.rightChildValue(i) != null)
-                    this.insert(heap.rightChildValue(i));
-            }
-        }*/
     }
 
     @SuppressWarnings("Duplicates")
