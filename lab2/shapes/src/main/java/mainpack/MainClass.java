@@ -9,6 +9,6 @@ public class MainClass {
         b.draw();
         System.out.println();
         Rectangle c = new Rectangle();
-        c.draw();
+        c.draw();   
     }
 }

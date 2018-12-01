@@ -38,7 +38,7 @@ public class Polynomial {
         /*
         Adding data to series has to be like this to show the lines without dots,
         createSymbols="false" creates a weird bug where some points jump straight to y = 0
-        where they shouldn't
+        where they shouldn't, even though their value is alright in chartPoints
          */
         for (int i = 0; i < chartPoints.size(); ++i) {
             XYChart.Data newData = new XYChart.Data<>(
