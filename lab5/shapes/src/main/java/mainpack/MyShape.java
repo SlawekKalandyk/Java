@@ -12,7 +12,6 @@ import java.util.ArrayList;
 
 public abstract class MyShape {
     protected ArrayList<Integer> size = new ArrayList<>();
-    private String name;
 
     public abstract void draw();
 
@@ -29,21 +28,22 @@ public abstract class MyShape {
         });
 
         shape.setOnMouseDragged(new EventHandler<MouseEvent>() {
-            /* TODO: boundaries */
             @Override
             public void handle(MouseEvent event) {
-                if (    mousePosition.get().getX() > shape.getParent().getLayoutX() &&
-                        mousePosition.get().getX() < shape.getParent().getLayoutX() + shape.getScene().getWidth() &&
-                        mousePosition.get().getY() > shape.getParent().getLayoutY() &&
-                        mousePosition.get().getY() < shape.getParent().getLayoutY() + shape.getScene().getHeight()) {
+                double deltaX = event.getSceneX() - mousePosition.get().getX();
+                double deltaY = event.getSceneY() - mousePosition.get().getY();
+                shape.setLayoutX(shape.getLayoutX() + deltaX);
+                shape.setLayoutY(shape.getLayoutY() + deltaY);
+                mousePosition.set(new Point2D(event.getSceneX(), event.getSceneY()));
 
-                    double deltaX = event.getSceneX() - mousePosition.get().getX();
-                    double deltaY = event.getSceneY() - mousePosition.get().getY();
-                    shape.setLayoutX(shape.getLayoutX() + deltaX);
-                    shape.setLayoutY(shape.getLayoutY() + deltaY);
-                    mousePosition.set(new Point2D(event.getSceneX(), event.getSceneY()));
-
-                }
+                if (shape.getLayoutX() < 0)
+                    shape.setLayoutX(0);
+                else if (shape.getLayoutX() > shape.getScene().getWidth() - shape.getLayoutBounds().getWidth())
+                    shape.setLayoutX(shape.getScene().getWidth() - shape.getLayoutBounds().getWidth());
+                if (shape.getLayoutY() < 0)
+                    shape.setLayoutY(0);
+                else if (shape.getLayoutY() > shape.getScene().getHeight() - shape.getParent().getLayoutY() - shape.getLayoutBounds().getHeight())
+                    shape.setLayoutY(shape.getScene().getHeight() - shape.getParent().getLayoutY() - shape.getLayoutBounds().getHeight());
             }
         });
     }

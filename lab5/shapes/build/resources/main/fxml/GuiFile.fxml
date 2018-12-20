@@ -7,6 +7,7 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
@@ -25,6 +26,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <ChoiceBox fx:id="shapeChoiceBox" prefWidth="150.0" value="Rectangle" GridPane.rowIndex="1">
@@ -38,11 +40,14 @@
                </items>
             </ChoiceBox>
             <Button fx:id="drawButton" mnemonicParsing="false" onAction="#drawOnButtonClick" text="Draw" GridPane.rowIndex="2" />
+            <Button fx:id="addToShapeListButton" mnemonicParsing="false" onAction="#addToShapeListOnButtonClick" text="Add to Shape List" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="size1Input" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="size2Input" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <Label text="Size 1" GridPane.columnIndex="1" />
             <Label text="Size 2" GridPane.columnIndex="2" />
-            <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearPane" text="Clear" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button fx:id="drawShapeListButton" mnemonicParsing="false" onAction="#drawShapeList" text="Draw Shape List" GridPane.rowIndex="3" />
+             <Button fx:id="clearShapeListButton" mnemonicParsing="false" onAction="#clearShapeList" text="Clear Shape List" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearPane" text="Clear Canvas" GridPane.columnIndex="2" GridPane.rowIndex="3" />
          </children>
          <padding>
             <Insets right="10.0" />
