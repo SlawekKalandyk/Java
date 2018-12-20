@@ -15,8 +15,14 @@ public class DatabaseCommands {
     public void connect() {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            conn = DriverManager.getConnection("jdbc:mysql://mysql.agh.edu.pl/skalandy",
-                    "skalandy", "MynnMfGjzaF2WNnV");
+
+            for (int i = 0; i < 3; ++i) {
+                if (conn == null)
+                    conn = DriverManager.getConnection("jdbc:mysql://mysql.agh.edu.pl/skalandy",
+                            "skalandy", "MynnMfGjzaF2WNnV");
+                else
+                    break;
+            }
         } catch (SQLException ex) {
             // handle any errors
             System.out.println("SQLException: " + ex.getMessage());
@@ -49,14 +55,16 @@ public class DatabaseCommands {
             if (rs != null) {
                 try {
                     rs.close();
-                } catch (SQLException sqlEx) {}
+                } catch (SQLException sqlEx) {
+                }
                 rs = null;
             }
 
             if (stmt != null) {
                 try {
                     stmt.close();
-                } catch (SQLException sqlEx) {}
+                } catch (SQLException sqlEx) {
+                }
 
                 stmt = null;
             }
@@ -88,14 +96,16 @@ public class DatabaseCommands {
             if (rs != null) {
                 try {
                     rs.close();
-                } catch (SQLException sqlEx) {}
+                } catch (SQLException sqlEx) {
+                }
                 rs = null;
             }
 
             if (stmt != null) {
                 try {
                     stmt.close();
-                } catch (SQLException sqlEx) {}
+                } catch (SQLException sqlEx) {
+                }
 
                 stmt = null;
             }
@@ -127,14 +137,16 @@ public class DatabaseCommands {
             if (rs != null) {
                 try {
                     rs.close();
-                } catch (SQLException sqlEx) {}
+                } catch (SQLException sqlEx) {
+                }
                 rs = null;
             }
 
             if (stmt != null) {
                 try {
                     stmt.close();
-                } catch (SQLException sqlEx) {}
+                } catch (SQLException sqlEx) {
+                }
 
                 stmt = null;
             }
@@ -152,11 +164,13 @@ public class DatabaseCommands {
                             + book.getBookName() + "','"
                             + book.getAuthor() + "','"
                             + book.getYear() + "')");
-        } catch( SQLException sqlEx) {}
+        } catch (SQLException sqlEx) {
+        }
         if (stmt != null) {
             try {
                 stmt.close();
-            } catch (SQLException sqlEx) {}
+            } catch (SQLException sqlEx) {
+            }
 
             stmt = null;
         }

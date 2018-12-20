@@ -11,6 +11,9 @@ public class Kadry {
     private String tableName = "kadra";
     private int columnAmount = 2;
 
+    /*
+    TODO: kolumna enum z typem pracownika
+     */
     public Kadry() {
         polacz();
         //utworzBazeDanychJesliNieIstnieje(); //access denied
