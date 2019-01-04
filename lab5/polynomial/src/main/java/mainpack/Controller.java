@@ -89,8 +89,9 @@ public class Controller {
         polynomial.calculateChartPoints();
     }
 
-    /* TODO: function to calculate remaining points upon range change
-    TODO: exceptions
+    /*
+        TODO: function to calculate remaining points upon range change
+        TODO: exceptions
      */
     public void onBeginXAxisChanged(ActionEvent actionEvent) {
         Double newBeginXRange = Double.parseDouble(beginXAxisInput.getText());

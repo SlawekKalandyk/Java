@@ -22,17 +22,21 @@ public class Polynomial {
     public void calculateChartPoints() {
         series.getData().clear();
         chartPoints.clear();
-
+        ArrayList<Double> xPoints = new ArrayList<>();
         Double point = beginXRange - calculationJump;
-        while (point <= endXRange + calculationJump) {
+        xPoints.add(point);
+        while (point < endXRange + calculationJump) {
             Double temp = 0.0;
 
-            for (int i = 0; i < coefficients.size(); ++i) {
-                temp += coefficients.get(i).getCoefficientValue() * Math.pow(point, i);
-            }
+            /*
+                It's a_0 * x^n + a_1 * x^(n-1) + ...
+             */
+            for (int i = 0; i < coefficients.size(); ++i)
+                temp += coefficients.get(i).getCoefficientValue() * Math.pow(point, coefficients.size() - 1 - i);
 
             chartPoints.add(temp);
             point += calculationJump;
+            xPoints.add(point);
         }
 
         /*
@@ -42,7 +46,7 @@ public class Polynomial {
          */
         for (int i = 0; i < chartPoints.size(); ++i) {
             XYChart.Data newData = new XYChart.Data<>(
-                    beginXRange + i * calculationJump, chartPoints.get(i));
+                    xPoints.get(i), chartPoints.get(i));
             Rectangle rect = new Rectangle(0,0);
             rect.setVisible(false);
             newData.setNode(rect);
