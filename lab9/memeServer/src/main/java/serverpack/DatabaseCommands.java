@@ -22,7 +22,7 @@ public class DatabaseCommands {
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
             if (conn == null)
                 conn = DriverManager.getConnection("jdbc:mysql://mysql.agh.edu.pl/skaland1",
-                        "skaland1", "8MUcPmWepSouNEGu");
+                        "skaland1", "XpPpJVpS19kToLBj");
         } catch (SQLException sqlEx) {
             System.out.println("SQLException: " + sqlEx.getMessage());
             System.out.println("SQLState: " + sqlEx.getSQLState());
@@ -32,7 +32,10 @@ public class DatabaseCommands {
         }
     }
 
-    public boolean registerUser(Integer id, String password) {
+    public Boolean registerUser(Integer id, String password) {
+        if(checkIfUserExistsInDatabase(id, password))
+            return false;
+
         String registerString = "INSERT INTO users VALUES(?, ?);";
         PreparedStatement registerStatement;
 
@@ -54,7 +57,54 @@ public class DatabaseCommands {
         return false;
     }
 
-    public boolean removeUser(Integer id) {
+    public Boolean checkIfUserExistsInDatabase(Integer id, String password) {
+        String selectString = "SELECT * FROM users WHERE id = ? and password = ?;";
+        PreparedStatement selectStatement;
+        ResultSet rs;
+
+        try {
+            selectStatement = conn.prepareStatement(selectString);
+            selectStatement.setInt(1, id);
+            selectStatement.setString(2, password);
+            rs = selectStatement.executeQuery();
+
+            return rs.next();
+        } catch (SQLException sqlEx) {
+            System.out.println("SQLException: " + sqlEx.getMessage());
+            System.out.println("SQLState: " + sqlEx.getSQLState());
+            System.out.println("VendorError: " + sqlEx.getErrorCode());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return false;
+    }
+
+
+    /*
+        user with id 0 is always in the database (at least that's the assumption)
+     */
+    public Integer getRegisterId() {
+        String selectString = "SELECT * from users";
+        PreparedStatement selectStatement;
+        ResultSet rs;
+        try {
+            selectStatement = conn.prepareStatement(selectString);
+            rs = selectStatement.executeQuery();
+            if(rs.last())
+                return rs.getRow();
+        } catch (SQLException sqlEx) {
+            System.out.println("SQLException: " + sqlEx.getMessage());
+            System.out.println("SQLState: " + sqlEx.getSQLState());
+            System.out.println("VendorError: " + sqlEx.getErrorCode());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return 0;
+    }
+
+    public Boolean removeUser(Integer id) {
         String removeString = "DELETE FROM users WHERE id = ?;";
         PreparedStatement removeStatement;
 
@@ -75,7 +125,7 @@ public class DatabaseCommands {
         return false;
     }
 
-    public boolean insertMeme(Integer memeId, String memeName, String memeFilepath, Integer clientId) {
+    public Boolean insertMeme(Integer memeId, String memeName, String memeFilepath, Integer clientId) {
         String insertMemeString = "INSERT INTO memes VALUES(?, ?, ?, ?);";
         PreparedStatement insertMemeStatement;
 
@@ -105,7 +155,7 @@ public class DatabaseCommands {
         return false;
     }
 
-    public boolean removeMeme(Integer id) {
+    public Boolean removeMeme(Integer id) {
         String removeString = "DELETE FROM memes WHERE id = ?;";
         PreparedStatement removeStatement;
 

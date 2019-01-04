@@ -37,6 +37,9 @@ public class DatabaseCommandsTest {
         assertTrue(temp);
     }
 
+    /*
+        TODO: better select tests, for now the test is kind of manual
+     */
     @Test
     public void getMemeFromDatabase() { //can get meme from database with selectMemesByName
         Integer mid = 0;
@@ -51,6 +54,7 @@ public class DatabaseCommandsTest {
 
         ArrayList<Meme> selectedMemes = databaseCommands.selectMemesByName("test");
         File meme = selectedMemes.get(0).getMeme();
+
         for(Meme m: selectedMemes) {
             System.out.println(m.getId() + " " + m.getClientId() + " " + m.getName());
         }
@@ -59,6 +63,7 @@ public class DatabaseCommandsTest {
         }catch(Exception ex) {
             ex.printStackTrace();
         }
+
         databaseCommands.removeMeme(mid);
     }
 }

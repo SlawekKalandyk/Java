@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.concurrent.Semaphore;
 import java.util.function.BiFunction;
+
 public class MaxMultiThread implements Runnable {
     private String fileName;
     private Semaphore sem1, sem2;
