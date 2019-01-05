@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clientpack.Controller">
+  <tabs>
+      <Tab text="Start">
+          <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <SplitPane dividerPositions="0.29797979797979796" layoutX="193.0" layoutY="98.0" prefHeight="567.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <items>
+                      <AnchorPane maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="400.0">
+                           <children>
+                              <GridPane prefHeight="200.0" prefWidth="390.0">
+                                <columnConstraints>
+                                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label text="Login" GridPane.columnSpan="2" />
+                                    <Label text="ID:" GridPane.rowIndex="1" />
+                                    <Label text="Password:" GridPane.rowIndex="2" />
+                                    <TextField fx:id="startLoginIdField" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <GridPane.margin>
+                                          <Insets right="15.0" />
+                                       </GridPane.margin>
+                                    </TextField>
+                                    <Button fx:id="startLoginEnterButton" mnemonicParsing="false" onAction="#onStartLoginEnterButtonClick" text="Enter" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+                                    <PasswordField fx:id="startLoginPasswordField" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                       <GridPane.margin>
+                                          <Insets right="15.0" />
+                                       </GridPane.margin>
+                                    </PasswordField>
+                                 </children>
+                              </GridPane>
+                           </children></AnchorPane>
+                        <AnchorPane maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="400.0">
+                            <children>
+                                <GridPane prefHeight="200.0" prefWidth="390.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Label text="Register" GridPane.columnSpan="2" />
+                                        <Label text="ID:" GridPane.rowIndex="1" />
+                                        <Label text="Password:" GridPane.rowIndex="2" />
+                                        <TextField fx:id="startRegisterIdField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                            <opaqueInsets>
+                                                <Insets />
+                                            </opaqueInsets>
+                                            <GridPane.margin>
+                                                <Insets right="15.0" />
+                                            </GridPane.margin>
+                                        </TextField>
+                                        <Button fx:id="startRegisterEnterButton" mnemonicParsing="false" onAction="#onStartRegisterEnterButtonClick" text="Enter" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+                                        <PasswordField fx:id="startRegisterPasswordField" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                            <GridPane.margin>
+                                                <Insets right="15.0" />
+                                            </GridPane.margin>
+                                        </PasswordField>
+                                    </children>
+                                </GridPane>
+                            </children></AnchorPane>
+                    </items>
+                  </SplitPane>
+               </children></AnchorPane>
+          </content>
+      </Tab>
+    <Tab fx:id="addMemeTab" text="Add meme" disable="true">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+            <children>
+                <GridPane prefHeight="200.0" prefWidth="400.0">
+                    <columnConstraints>
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Label text="Name:" />
+                        <Label text="Upper text:" GridPane.rowIndex="1" />
+                        <Label text="Lower text:" GridPane.rowIndex="2" />
+                        <Label text="Choose meme:" GridPane.rowIndex="3" />
+                        <Button fx:id="addMemeClearButton" mnemonicParsing="false" onAction="#onAddMemeClearButtonClick" text="Clear" GridPane.rowIndex="5" />
+                        <TextField fx:id="addMemeNameField" GridPane.columnIndex="1" />
+                        <TextField fx:id="addMemeUpperTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="addMemeLowerTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Button fx:id="addMemeAddButton" mnemonicParsing="false" onAction="#onAddMemeAddButtonClick" text="Add" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Button fx:id="chooseFileFromDiskButton" onAction="#onChooseFileFromDiskButtonClick" mnemonicParsing="false" text="Choose file from disk" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Button fx:id="chooseFileFromTemplatesButton" onAction="#onChooseFileFromTemplatesButtonClick" mnemonicParsing="false" text="Choose file from templates" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                    </children>
+                </GridPane>
+            </children></AnchorPane>
+      </content>
+    </Tab>
+    <Tab fx:id="browseMemesTab" text="Browse memes" disable="true">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+      </content>
+    </Tab>
+  </tabs>
+</TabPane>
